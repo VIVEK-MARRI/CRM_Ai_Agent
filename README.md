@@ -33,6 +33,61 @@ A comprehensive AI-powered Customer Relationship Management system with intellig
 └─────────────────────────────────────────┘
 ```
 
+### Detailed Architecture Diagram
+
+```mermaid
+flowchart LR
+  subgraph Frontend[Frontend - React + Tailwind + Recharts]
+    F1[CRM Dashboard UI]
+    F2[Lead Table + Filters]
+    F3[Circular Score Meter]
+    F4[Expandable Explanation Panel]
+    F5[Analytics Dashboard]
+  end
+
+  subgraph API[FastAPI - API Layer]
+    A1[GET /analytics]
+    A2[GET /leads]
+    A3[POST /score-lead]
+  end
+
+  subgraph Service[Service Layer]
+    S1[Analytics Service]
+    S2[Lead Service]
+  end
+
+  subgraph Data[Data Layer]
+    D1[(PostgreSQL Database)]
+    D2[(Redis Cache)]
+    D3[(Config - Weights JSON/YAML)]
+  end
+
+  subgraph AI[AI Engines]
+    E1[Weighted Scoring Engine]
+    E2[Explanation Engine]
+    E3[Next Best Action Engine]
+  end
+
+  F1 --> A1
+  F2 --> A2
+  F3 --> A3
+  F5 --> A1
+
+  A1 --> S1
+  A2 --> S2
+  A3 --> S2
+
+  S1 --> D1
+  S2 --> D1
+  S2 --> D2
+  S2 --> D3
+
+  S2 --> E1
+  E1 --> E2
+  E1 --> E3
+  D3 --> E1
+```
+
 ## ✨ Key Features
 
 - **Intelligent Lead Scoring**: AI-powered scoring system with configurable weights
