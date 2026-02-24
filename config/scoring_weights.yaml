@@ -1,0 +1,129 @@
+# Lead Scoring Weights Configuration
+# All weights are normalized to contribute to final score
+
+# Version of the config
+version: "1.0"
+
+# Engagement signals weights
+weights:
+  # Primary conversion indicators
+  demo_requested:
+    weight: 25
+    description: "Lead requested a product demo"
+    
+  registration:
+    weight: 15
+    description: "Lead completed registration"
+    
+  # Contact channel signals
+  enquiry_call_whatsapp:
+    weight: 20
+    description: "Direct engagement via call or WhatsApp"
+    
+  pricing_compared:
+    weight: 18
+    description: "Lead compared pricing with competitors"
+    
+  # Source quality signals
+  lead_through_events:
+    weight: 12
+    description: "Lead acquired through events"
+    
+  lead_through_call:
+    weight: 14
+    description: "Warm lead through personal call"
+    
+  lead_through_referral:
+    weight: 16
+    description: "Referred lead from trusted source"
+
+# Recency scoring configuration
+recency:
+  # Days decay factor
+  days_decay: 15
+  # Max recency score
+  max_score: 10
+  description: "Recent enquiries indicate higher intent"
+
+# Intent threshold configuration
+intent_thresholds:
+  high: 80
+  medium: 60
+  low: 40
+
+# Conversion probability mapping by score
+conversion_probabilities:
+  score_80_100:
+    min: 80
+    max: 100
+    probability: 0.75
+    urgency: "Immediate"
+    
+  score_60_79:
+    min: 60
+    max: 79
+    probability: 0.55
+    urgency: "High"
+    
+  score_40_59:
+    min: 40
+    max: 59
+    probability: 0.30
+    urgency: "Medium"
+    
+  score_below_40:
+    min: 0
+    max: 39
+    probability: 0.10
+    urgency: "Low"
+
+# Recommended actions by score bracket
+recommended_actions:
+  score_80_100:
+    urgency: "Immediate"
+    action: "Direct sales call within 24 hrs"
+    probability_label: "70-90%"
+    
+  score_60_79:
+    urgency: "High"
+    action: "Send pricing + schedule follow-up"
+    probability_label: "40-70%"
+    
+  score_40_59:
+    urgency: "Medium"
+    action: "Nurture campaign"
+    probability_label: "20-40%"
+    
+  score_below_40:
+    urgency: "Low"
+    action: "Automated drip marketing"
+    probability_label: "<20%"
+
+# Color coding for UI
+score_colors:
+  high:
+    min: 71
+    max: 100
+    color: "#10b981"  # Green
+    label: "High Intent"
+    
+  medium:
+    min: 41
+    max: 70
+    color: "#f59e0b"  # Yellow
+    label: "Medium Intent"
+    
+  low:
+    min: 0
+    max: 40
+    color: "#ef4444"  # Red
+    label: "Low Intent"
+
+# Confidence calculation factors
+confidence_factors:
+  - name: "Data Completeness"
+    weight: 0.3
+  - name: "Signal Recency"
+    weight: 0.4
+  - name: "Signal Diversity"
+    weight: 0.3
